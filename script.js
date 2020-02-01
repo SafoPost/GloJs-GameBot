@@ -2,10 +2,12 @@
 
 function startFunction() {
 
+  // Функция формирования рандомного числа
   function getRandomInt() {
     return Math.floor(Math.random() * 100);
   };
 
+  // Функция на проверку числа
   const isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n)
   };
@@ -16,132 +18,42 @@ function startFunction() {
 
     let start = confirm('Давай поиграем!');
 
+    let attempt = 10;
+
+
     start === true ? guessTheNumber() : alert('Ок, может в другой раз...'); // Запускаем игру?
 
     function guessTheNumber() {
-      let num = prompt('Угадай число от 1 до 100');
 
-      if (!isNumber(num)) {
+      if (attempt === 0) { // попытки закончились
+        let restart = confirm('К сожалению, попытки закончились. Хочешь сыграть снова?')
+        return restart === true ? startFunction() : alert('Всего хорошего!'); // Перезапустить игру?
+      };
+
+      let num = prompt('Угадай число от 1 до 100. Количество попыток: ' + attempt);
+
+      if (!isNumber(num)) { // Вызываем функцию проверки числа
         num = +num;
         alert('Введи число!');
         return guessTheNumber();
       };
       if (num !== ourNumber) {
         if (num > ourNumber) {
-          alert('Загаданное число меньше, попробуй снова');
+          attempt--;
+          alert('Загаданное число меньше, попробуй снова, осталось попыток: ' + attempt);
           return guessTheNumber();
         };
         if (num < ourNumber) {
-          alert('Загаданное число больше, попробуй снова');
+          attempt--;
+          alert('Загаданное число больше, попробуй снова, осталось попыток: ' + attempt);
           return guessTheNumber();
         };
       };
-      confirm('Угадал! Хочешь сыграть снова?')
-      return start === true ? startFunction() : alert('Спасибо за уделённое время!');
+      let victory = confirm('Угадал! Хочешь сыграть снова?');
+      return victory === true ? startFunction() : alert('Спасибо за уделённое время!');
     };
   };
   startGame();
 };
 startFunction();
 
-
-/* function guessTheNumber() {
-  let num = prompt(' Угадай число от 1 до 100);
-
-  // attempt === 0 ?
-  //   confirm('К сожалению, попытки закончились. Хочешь сыграть снова?') === true ?
-  //     guessTheNumber() :
-  //     alert('Всего хорошего!)') :
-
-  return getRandomInt();
-
-  if (isNumber) {
-    alert('Введи число!');
-    return guessTheNumber();
-  };
-  if (num !== ourNumber) {
-    if (num > ourNumber) {
-      attempt--;
-      alert('Загаданное число меньше, попробуй снова, осталось попыток: ' + attempt);
-      return guessTheNumber();
-    };
-    if (num < ourNumber) {
-      attempt--;
-      alert('Загаданное число больше, попробуй снова, осталось попыток: ' + attempt);
-      return guessTheNumber();
-    };
-  };
-  return confirm('Число угадано!');
-};
-
-guessTheNumber(); */
-
-
-
-
-// let isNumber = function (n) {
-//   return !isNaN(parseFloat(n)) && isFinite(n)
-// };
-
-/* function ourNumber(q) {
-  let num = prompt('Угадай число от 1 до 100');
-  if (isNaN(parseFloat(num)) && isFinite(num)) {
-    alert('Введи число!');
-    ourNumber(q);
-  };
-  if (num > q) {
-    alert('Загаданное число меньше, попробуй снова');
-    ourNumber(q);
-  } else if (num < q) {
-    alert('Загаданное число больше, попробуй снова');
-    ourNumber(q);
-  } else {
-    alert('Угадал!')
-  }
-};
-
-ourNumber(5); */
-
-/* function ourNumber(q) {
-  let num = prompt('Угадай число от 1 до 100');
-  if (!isNaN(parseFloat(num)) && isFinite(num)) {
-    alert('Введи число!');
-    ourNumber(q);
-  };
-  if (num > q) {
-    alert('Загаданное число меньше, попробуй снова');
-    ourNumber(q);
-  };
-  if (num < q) {
-    alert('Загаданное число больше, попробуй снова')
-    ourNumber(q);
-  };
-  if (num === q) {
-    alert('Угадал!')
-  }
-};
-
-ourNumber(5); */
-
-
-// function ourNumber() {
-//   let q = 68;
-//   let num = prompt('Угадай число от 1 до 100', 1);
-//   while (isNaN(parseFloat(num))) {
-//     alert('Введи число!');
-//     ourNumber();
-//   };
-//   if (num !== q) {
-//     if (num > q) {
-//       alert('Загаданное число меньше, попробуй снова');
-//       ourNumber()
-//     };
-//     if (num < q) {
-//       alert('Загаданное число больше, попробуй снова');
-//       ourNumber()
-//     };
-//   };
-//   return alert('Число угадано!')
-// };
-
-// ourNumber();
